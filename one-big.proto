@@ -1,7 +1,7 @@
 syntax = "proto3";
-package toplevel;
+package onebig;
 
-option go_package = "toplevel";
+option go_package = "onebig";
 
 message Nested1 {
 	string first = 1;

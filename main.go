@@ -2,17 +2,17 @@ package main
 
 import (
 	"github.com/cjfinnell/golang-proto-demo/commonfields"
-	"github.com/cjfinnell/golang-proto-demo/toplevel"
+	"github.com/cjfinnell/golang-proto-demo/onebig"
 	"github.com/golang/protobuf/proto"
 )
 
-func tryTopWrapper() {
+func tryOneBig() {
 	// Make it
-	topWrapMsg := &toplevel.TopWrapper{
+	topWrapMsg := &onebig.TopWrapper{
 		Foo: "foo",
 		Bar: 12,
 		Baz: true,
-		Nested1: &toplevel.Nested1{
+		Nested1: &onebig.Nested1{
 			First: "inside nested 1",
 		},
 		// No Nested2 !
@@ -24,7 +24,7 @@ func tryTopWrapper() {
 	}
 
 	// Read it
-	readTopWrapMsg := &toplevel.TopWrapper{}
+	readTopWrapMsg := &onebig.TopWrapper{}
 	if err := proto.Unmarshal(raw, readTopWrapMsg); err != nil {
 		panic("Failed to unmarshal top wrapper")
 	}
@@ -42,7 +42,7 @@ func tryTopWrapper() {
 }
 
 func main() {
-	tryTopWrapper()
+	tryOneBig()
 
 	// TODO: common fields
 	_ = commonfields.Source1{}
