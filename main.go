@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/cjfinnell/golang-proto-demo/anywrapper"
 	"github.com/cjfinnell/golang-proto-demo/commonfields"
 	"github.com/cjfinnell/golang-proto-demo/onebig"
 	"github.com/golang/protobuf/proto"
@@ -76,7 +77,7 @@ func tryCommonFields() {
 		if err := proto.Unmarshal(raw, readSource1); err == nil {
 			println("found a source 1, with common:", readSource1.GetCommon().Foo)
 			if i != 0 {
-				panic("unmarshaled a 2 as a 1!!!")
+				println("unmarshaled a 2 as a 1!!!")
 			}
 			continue
 		}
@@ -84,7 +85,7 @@ func tryCommonFields() {
 		if err := proto.Unmarshal(raw, readSource2); err == nil {
 			println("found a source 1, with common:", readSource2.GetCommon().Foo)
 			if i != 1 {
-				panic("unmarshaled a 1 as a 2!!!")
+				println("unmarshaled a 1 as a 2!!!")
 			}
 			continue
 		}
@@ -92,7 +93,12 @@ func tryCommonFields() {
 	}
 }
 
+func tryWrapperWithAny() {
+	_ = &anywrapper.AnyWrapper{}
+}
+
 func main() {
 	tryOneBig()
 	tryCommonFields()
+	tryWrapperWithAny()
 }

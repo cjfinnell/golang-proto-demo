@@ -1,0 +1,21 @@
+syntax = "proto3";
+package anywrapper;
+
+import "any.proto";
+
+option go_package = "anywrapper";
+
+message Service1 {
+	string first = 1;
+}
+
+message Service2 {
+	string second = 1;
+}
+message AnyWrapper {
+	google.protobuf.Any inside = 1;
+
+	string foo = 2;
+	int64 bar = 3;
+	bool baz = 4;
+}
