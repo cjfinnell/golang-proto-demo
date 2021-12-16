@@ -1,0 +1,19 @@
+syntax = "proto3";
+package commonfields;
+
+option go_package = "commonfields";
+
+message Source1 {
+	string first = 1;
+	CommonFields common = 2;
+}
+
+message Source2 {
+	string second = 1;
+	CommonFields common = 2;
+}
+message CommonFields {
+	string foo = 1;
+	int64 bar = 2;
+	bool baz = 3;
+}
