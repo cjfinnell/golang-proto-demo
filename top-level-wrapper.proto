@@ -1,0 +1,20 @@
+syntax = "proto3";
+package toplevel;
+
+option go_package = "toplevel";
+
+message Nested1 {
+	string first = 1;
+}
+
+message Nested2 {
+	string second = 1;
+}
+message TopWrapper {
+	string foo = 1;
+	int64 bar = 2;
+	bool baz = 3;
+
+	Nested1 nested1 = 4;
+	Nested2 nested2 = 5;
+}

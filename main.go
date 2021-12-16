@@ -1,5 +1,7 @@
 package main
 
+import "github.com/cjfinnell/golang-proto-demo/toplevel"
+
 func main() {
-	println("Hello, world.")
+	_ = toplevel.TopWrapper{}
 }
