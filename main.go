@@ -41,10 +41,58 @@ func tryOneBig() {
 	}
 }
 
+func tryCommonFields() {
+	// Make both
+	source1 := &commonfields.Source1{
+		First: "first",
+		Common: &commonfields.CommonFields{
+			Foo: "foo",
+		},
+	}
+	raw1, err := proto.Marshal(source1)
+	if err != nil {
+		panic("Failed to marshal common fields 1")
+	}
+	source2 := &commonfields.Source2{
+		Second: "second",
+		Common: &commonfields.CommonFields{
+			Foo: "foo",
+		},
+	}
+	raw2, err := proto.Marshal(source2)
+	if err != nil {
+		panic("Failed to marshal common fields 2")
+	}
+
+	var rawMessages [][]byte
+	rawMessages = append(rawMessages, raw1, raw2)
+
+	// Read both
+	for i, raw := range rawMessages {
+		println("unmarshaling commonfields", i+1)
+		readSource1 := &commonfields.Source1{}
+		readSource2 := &commonfields.Source2{}
+
+		if err := proto.Unmarshal(raw, readSource1); err == nil {
+			println("found a source 1, with common:", readSource1.GetCommon().Foo)
+			if i != 0 {
+				panic("unmarshaled a 2 as a 1!!!")
+			}
+			continue
+		}
+		println("not a source 1, trying source 2")
+		if err := proto.Unmarshal(raw, readSource2); err == nil {
+			println("found a source 1, with common:", readSource2.GetCommon().Foo)
+			if i != 1 {
+				panic("unmarshaled a 1 as a 2!!!")
+			}
+			continue
+		}
+		panic("failed to unmarshal common fields impl")
+	}
+}
+
 func main() {
 	tryOneBig()
-
-	// TODO: common fields
-	_ = commonfields.Source1{}
-	_ = commonfields.Source2{}
+	tryCommonFields()
 }
